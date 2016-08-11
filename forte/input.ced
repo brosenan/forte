@@ -1,0 +1,5 @@
+annotation:shrink(('/bootstrap':autoFix('/bootstrap':typeMimatch('/bootstrap':number,nat,Path),VNs,cpi:edit(Path,Nat::nat,VNs)):-cpi:termAtPath(Path,Num::_,_),toNat(Num,Nat))).
+'/bootstrap':sandbox(o(e(e(e(o(o(o(o(e(o(e(o(z))))))))))))::nat).
+'/bootstrap':signature(nat(Num)::'/bootstrap':marker,[Num::'/bootstrap':number]).
+annotation:shrink(('/bootstrap':check(Path,Nat::nat,VNs,'/bootstrap':marker(Path,nat(Num))):-builtin:ground(Nat::nat),toNum(Nat,Num))).
+'/bootstrap':markerVis(nat(Num),_,'/bootstrap':color('/bootstrap':vis(cpi:immediateDescriptor(Num,[])::'/bootstrap':number),cpi:rgb(0,0,255))).

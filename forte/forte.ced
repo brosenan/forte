@@ -1,0 +1,20 @@
+'/bootstrap':defAtom(nat::'/bootstrap':type).
+'/bootstrap':defAtom(z::nat).
+'/bootstrap':projection(z::nat,'/bootstrap':label(!'0')).
+'/bootstrap':signature(e(N)::nat,[N::nat]).
+'/bootstrap':projection(e(N)::nat,'/bootstrap':horiz(['/bootstrap':vis(N::nat),'/bootstrap':label(!'0')])).
+'/bootstrap':signature(o(N)::nat,[N::nat]).
+'/bootstrap':projection(o(N)::nat,'/bootstrap':horiz(['/bootstrap':vis(N::nat),'/bootstrap':label(!'1')])).
+'/bootstrap':sandbox(o(e(o(z)))::nat).
+'/bootstrap':signature(toNum(Nat,Num)::'/bootstrap':pred,[Nat::nat,Num::'/bootstrap':number]).
+'/util':behavior(toNum(Nat,Num)::'/bootstrap':pred,!'should convert 0 to 0', (toNum(z,Zero),'/util':assertEqual(Zero,0,'/bootstrap':number))).
+'/util':behavior(toNum(Nat,Num)::'/bootstrap':pred,!'should convert 01 to 1', (toNum(o(z),One),'/util':assertEqual(One,1,'/bootstrap':number))).
+'/util':behavior(toNum(Nat,Num)::'/bootstrap':pred,!'should convert 0101 to 5', (toNum(o(e(o(z))),Five),'/util':assertEqual(Five,5,'/bootstrap':number))).
+toNum(z,0):-builtin:true.
+toNum(o(X),V):-'/Functional':eval('/Functional':where('/Functional':applyBinOp('/Functional':applyBinOp('/Functional':const(XPrime),'/Functional':times,'/Functional':const(2)),'/Functional':numPlus,'/Functional':const(1)),toNum(X,XPrime)),'/bootstrap':number,V).
+toNum(e(X),V):-'/Functional':eval('/Functional':where('/Functional':applyBinOp('/Functional':const(XPrime),'/Functional':times,'/Functional':const(2)),toNum(X,XPrime)),'/bootstrap':number,V).
+'/bootstrap':signature(toNat(Num,Nat)::'/bootstrap':pred,[Num::'/bootstrap':number,Nat::nat]).
+'/util':behavior(toNat(Num,Nat)::'/bootstrap':pred,!'should convert 0 to 0', (toNat(0,Zero),'/util':assertEqual(Zero,z,nat))).
+'/util':behavior(toNat(Num,Nat)::'/bootstrap':pred,!'should convert 1 to 01', (toNat(1,One),'/util':assertEqual(One,o(z),nat))).
+'/util':behavior(toNat(Num,Nat)::'/bootstrap':pred,!'should convert 5 to 0101', (toNat(5,Five),'/util':assertEqual(Five,o(e(o(z))),nat))).
+annotation:shrink((toNat(Num,Nat):-builtin:if(builtin:greaterThen(1,Num),Nat::nat=z::nat, (builtin:if(builtin:modulus(Num,2,0), (Nat::nat=e(NatPrime)::nat,Num::'/bootstrap':number=NumPrime::'/bootstrap':number), (Nat::nat=o(NatPrime)::nat,builtin:minus(Num,1,NumPrime))),builtin:div(NumPrime,2,NumPrimePrime),toNat(NumPrimePrime,NatPrime))))).

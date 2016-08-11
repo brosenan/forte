@@ -1,0 +1,15 @@
+'/bootstrap':signature(plus(A,B,C)::'/bootstrap':pred,[A::nat,B::nat,C::nat]).
+'/bootstrap':projection(plus(A,B,C)::'/bootstrap':pred,'/bootstrap':horiz(['/bootstrap':vis(A::nat),'/bootstrap':label(! (+)),'/bootstrap':vis(B::nat),'/bootstrap':label(! (=)),'/bootstrap':vis(C::nat)])).
+'/util':behavior(plus(A,B,C)::'/bootstrap':pred,!'should give A if B=0', (plus(o(e(o(z))),z,Five),'/util':assertEqual(Five,o(e(o(z))),nat))).
+'/util':behavior(plus(A,B,C)::'/bootstrap':pred,!'should give B if A=0', (plus(z,o(e(o(z))),Five),'/util':assertEqual(Five,o(e(o(z))),nat))).
+'/util':behavior(plus(A,B,C)::'/bootstrap':pred,!'should give 1 + 1 = 2', (plus(o(z),o(z),Two),'/util':assertEqual(Two,e(o(z)),nat))).
+'/util':behavior(plus(A,B,C)::'/bootstrap':pred,!'should give 1 + 2 = 3', (plus(o(z),e(o(z)),Three),'/util':assertEqual(Three,o(o(z)),nat))).
+'/util':behavior(plus(A,B,C)::'/bootstrap':pred,!'should give 2 + 1 = 3', (plus(e(o(z)),o(z),Three),'/util':assertEqual(Three,o(o(z)),nat))).
+'/util':behavior(plus(A,B,C)::'/bootstrap':pred,!'should give 2 + 2 = 4', (plus(e(o(z)),e(o(z)),Four),'/util':assertEqual(Four,e(e(o(z))),nat))).
+'/util':behavior(plus(A,B,C)::'/bootstrap':pred,!'should give 7 + 5 = 12', (plus(o(o(o(z))),o(e(o(z))),Twelve),'/util':assertEqual(Twelve,e(e(o(o(z)))),nat))).
+plus(A,z,A):-builtin:true.
+plus(z,B,B):-builtin:true.
+plus(e(A),e(B),e(C)):-plus(A,B,C).
+plus(e(A),o(B),o(C)):-plus(A,B,C).
+plus(o(A),e(B),o(C)):-plus(A,B,C).
+plus(o(A),o(B),e(D)):-plus(A,B,C),plus(C,o(z),D).
